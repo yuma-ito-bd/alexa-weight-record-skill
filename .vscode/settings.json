@@ -1,4 +1,7 @@
 {
+    "[javascript]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode" // フォーマッタをprettierに指定
+    },
     "[typescript]": {
         "editor.defaultFormatter": "esbenp.prettier-vscode" // フォーマッタをprettierに指定
     },
