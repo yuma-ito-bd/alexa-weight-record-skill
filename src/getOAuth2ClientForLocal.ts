@@ -4,9 +4,13 @@ import { Auth, google } from 'googleapis';
 import * as fs from 'fs';
 import * as fspromises from 'fs/promises';
 
-export async function getOAuth2Client(): Promise<Auth.OAuth2Client> {
+export async function getOAuth2ClientForLocal(): Promise<Auth.OAuth2Client> {
     const options = await getOAuth2ClientOptions();
-    return new google.auth.OAuth2(options);
+    const oauth2Client = new google.auth.OAuth2(options);
+    oauth2Client.setCredentials({
+        refresh_token: process.env.REFRESH_TOKEN,
+    });
+    return oauth2Client;
 }
 
 async function getOAuth2ClientOptions(): Promise<Auth.OAuth2ClientOptions> {

@@ -2,11 +2,11 @@ import http from 'http';
 import url from 'url';
 import open from 'open';
 import destoryer from 'server-destroy';
-import { getOAuth2Client } from './getOAuth2Client';
+import { getOAuth2ClientForLocal } from './getOAuth2ClientForLocal';
 import { saveCredentails } from './saveCredentials';
 
 export async function authenticate(scopes: string[]) {
-    const oauth2Client = await getOAuth2Client();
+    const oauth2Client = await getOAuth2ClientForLocal();
 
     const authorizeUrl = oauth2Client.generateAuthUrl({
         access_type: 'offline',
