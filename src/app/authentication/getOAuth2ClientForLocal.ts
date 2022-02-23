@@ -13,7 +13,10 @@ export async function getOAuth2ClientForLocal(): Promise<Auth.OAuth2Client> {
 }
 
 async function getOAuth2ClientOptions(): Promise<Auth.OAuth2ClientOptions> {
-    const keyPath = path.join(__dirname, '../credentials/client_secret.json');
+    const keyPath = path.join(
+        __dirname,
+        '../../../credentials/client_secret.json'
+    );
     if (!fs.existsSync(keyPath))
         throw new Error('not found the client secret file');
 
