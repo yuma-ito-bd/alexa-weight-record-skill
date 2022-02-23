@@ -2,16 +2,16 @@ import { SkillBuilders } from 'ask-sdk-core';
 import {
     cancelAndStopIntentHandler,
     errorHandler,
-    helloWorldIntentHandler,
     helpIntentHandler,
     launchRequestHandler,
+    registerIntentHandler,
     sessionEndedRequestHandler,
 } from './app/alexaHanders';
 
 const handler = SkillBuilders.custom()
     .addRequestHandlers(
         launchRequestHandler,
-        helloWorldIntentHandler,
+        registerIntentHandler,
         helpIntentHandler,
         cancelAndStopIntentHandler,
         sessionEndedRequestHandler

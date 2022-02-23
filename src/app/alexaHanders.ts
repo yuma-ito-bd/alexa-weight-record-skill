@@ -7,26 +7,28 @@ export const launchRequestHandler: RequestHandler = {
     },
     handle(handlerInput: HandlerInput): Response {
         const speechText =
-            'Welcome to the Alexa Skills Kit, you can say hello!';
+            '体重記録アプリ「たいれこ」にようこそ。今日の体重を教えてちょ。';
 
         return handlerInput.responseBuilder
             .speak(speechText)
             .reprompt(speechText)
-            .withSimpleCard('Hello World', speechText)
+            .withSimpleCard('ようこそ！', speechText)
             .getResponse();
     },
 };
 
-export const helloWorldIntentHandler: RequestHandler = {
+export const registerIntentHandler: RequestHandler = {
     canHandle(handlerInput: HandlerInput): boolean {
+        const { request } = handlerInput.requestEnvelope;
         return (
-            handlerInput.requestEnvelope.request.type === 'IntentRequest' &&
-            handlerInput.requestEnvelope.request.intent.name ===
-                'HelloWorldIntent'
+            request.type === 'IntentRequest' &&
+            request.intent.name === 'RegisterIntent'
         );
     },
-    handle(handlerInput: HandlerInput): Response {
-        const speechText = 'Hello World!';
+    async handle(handlerInput: HandlerInput): Promise<Response> {
+        // TODO 体重の数値を取り出して登録する
+
+        const speechText = '体重を記録しました。';
 
         return handlerInput.responseBuilder
             .speak(speechText)
