@@ -1,6 +1,7 @@
 import { google, fitness_v1 } from 'googleapis';
 
 import { getOAuth2ClientForLocal } from './getOAuth2ClientForLocal';
+import { NanoSecConverter } from './libs/NanoSecConverter';
 
 export async function getBodyData() {
     const oauth2Client = await getOAuth2ClientForLocal();
@@ -10,8 +11,8 @@ export async function getBodyData() {
         auth: oauth2Client,
     });
 
-    const from = Date.parse('2022-02-01') * 1e6; // ミリ秒→ナノ秒に変換(10^6倍する)
-    const to = Date.parse('2022-02-28') * 1e6;
+    const from = NanoSecConverter.parseMs(Date.parse('2022-02-01'));
+    const to = NanoSecConverter.parseMs(Date.parse('2022-02-28'));
 
     const { data } = await fitnessApi.users.dataSources.datasets.get({
         // 体重のデータソース
