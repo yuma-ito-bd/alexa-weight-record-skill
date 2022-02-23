@@ -17,7 +17,8 @@ export async function getBodyData() {
     const { data } = await fitnessApi.users.dataSources.datasets.get({
         // 体重のデータソース
         dataSourceId:
-            'raw:com.google.weight:com.google.android.apps.fitness:user_input',
+            // 'raw:com.google.weight:com.google.android.apps.fitness:user_input',
+            'derived:com.google.weight:com.google.android.gms:merge_weight',
         userId: 'me',
         datasetId: `${from}-${to}`,
     });
@@ -26,5 +27,14 @@ export async function getBodyData() {
 }
 
 getBodyData().then((data) => {
-    console.log(JSON.stringify(data));
+    const { point: points } = data;
+
+    points?.forEach((point) => {
+        const date = NanoSecConverter.toDate(Number(point.startTimeNanos));
+        const weight = point.value?.[0].fpVal;
+        const dataSource = point.originDataSourceId;
+        console.log(
+            `${date.toISOString()} - ${weight} kg (from: ${dataSource})`
+        );
+    });
 });
