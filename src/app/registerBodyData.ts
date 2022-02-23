@@ -13,7 +13,7 @@ export class RegisterBodyData {
         });
 
         const timeNs = NanoSecConverter.toUnixNs(time);
-        const dataSourceId = 'raw:com.google.weight:645092788289';
+        const dataSourceId = process.env.DATA_SOURCE_ID;
         const newDataSets: fitness_v1.Schema$Dataset = {
             dataSourceId,
             maxEndTimeNs: String(timeNs),
@@ -42,14 +42,3 @@ export class RegisterBodyData {
         return data;
     }
 }
-
-getOAuth2ClientForLocal().then((client) => {
-    new RegisterBodyData(client)
-        .exec(78.5, new Date())
-        .then((data) => {
-            console.log(JSON.stringify(data));
-        })
-        .catch((e) => {
-            console.error(e);
-        });
-});

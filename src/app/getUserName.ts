@@ -1,7 +1,5 @@
 import { Auth, google } from 'googleapis';
 
-import { getOAuth2ClientForLocal } from './authentication/getOAuth2ClientForLocal';
-
 export class GetUserName {
     constructor(private oauth2Client: Auth.OAuth2Client) {}
 
@@ -18,9 +16,3 @@ export class GetUserName {
         return name;
     }
 }
-
-getOAuth2ClientForLocal().then((client) => {
-    new GetUserName(client).exec().then((data) => {
-        console.log(JSON.stringify(data));
-    });
-});

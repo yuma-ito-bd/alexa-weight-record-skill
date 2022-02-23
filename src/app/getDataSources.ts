@@ -1,6 +1,4 @@
-import { google, fitness_v1, Auth } from 'googleapis';
-
-import { getOAuth2ClientForLocal } from './authentication/getOAuth2ClientForLocal';
+import { Auth, fitness_v1, google } from 'googleapis';
 
 export class GetDataSources {
     constructor(private oauth2Client: Auth.OAuth2Client) {}
@@ -16,9 +14,3 @@ export class GetDataSources {
         return data;
     }
 }
-
-getOAuth2ClientForLocal().then((client) => {
-    new GetDataSources(client).getDataSources().then((data) => {
-        console.log(JSON.stringify(data));
-    });
-});
