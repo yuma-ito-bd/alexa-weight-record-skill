@@ -1,10 +1,11 @@
-import { google, fitness_v1, Auth } from 'googleapis';
-
-import { getOAuth2ClientForLocal } from './authentication/getOAuth2ClientForLocal';
+import { Auth, fitness_v1, google } from 'googleapis';
 import { NanoSecConverter } from '../libs/NanoSecConverter';
 
 export class RegisterBodyData {
-    constructor(private oauth2Client: Auth.OAuth2Client) {}
+    constructor(
+        private oauth2Client: Auth.OAuth2Client,
+        private dataSourceId: string
+    ) {}
 
     public async exec(weight: number, time: Date) {
         const fitnessApi: fitness_v1.Fitness = google.fitness({
@@ -13,9 +14,8 @@ export class RegisterBodyData {
         });
 
         const timeNs = NanoSecConverter.toUnixNs(time);
-        const dataSourceId = process.env.DATA_SOURCE_ID;
         const newDataSets: fitness_v1.Schema$Dataset = {
-            dataSourceId,
+            dataSourceId: this.dataSourceId,
             maxEndTimeNs: String(timeNs),
             minStartTimeNs: String(timeNs),
             point: [
@@ -30,7 +30,7 @@ export class RegisterBodyData {
         const requestParams: fitness_v1.Params$Resource$Users$Datasources$Datasets$Patch =
             {
                 userId: 'me',
-                dataSourceId,
+                dataSourceId: this.dataSourceId,
                 datasetId: `${timeNs}-${timeNs}`,
                 requestBody: newDataSets,
             };
