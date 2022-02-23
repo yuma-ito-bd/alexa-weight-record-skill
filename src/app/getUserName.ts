@@ -1,6 +1,6 @@
 import { google } from 'googleapis';
 
-import { getOAuth2ClientForLocal } from './getOAuth2ClientForLocal';
+import { getOAuth2ClientForLocal } from './authentication/getOAuth2ClientForLocal';
 
 export async function getUserName() {
     const oauth2Client = await getOAuth2ClientForLocal();

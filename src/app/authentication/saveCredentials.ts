@@ -5,7 +5,7 @@ import path from 'path';
 export async function saveCredentails(credentials: Auth.Credentials) {
     const filePath = path.join(
         __dirname,
-        '../credentials/google-api-credentials.json'
+        '../../credentials/google-api-credentials.json'
     );
     const data = JSON.stringify(credentials);
     await fspromises.writeFile(filePath, data);

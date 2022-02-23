@@ -1,6 +1,6 @@
 import { google, fitness_v1 } from 'googleapis';
 
-import { getOAuth2ClientForLocal } from './getOAuth2ClientForLocal';
+import { getOAuth2ClientForLocal } from './authentication/getOAuth2ClientForLocal';
 
 export async function getDataSources() {
     const oauth2Client = await getOAuth2ClientForLocal();

@@ -1,7 +1,7 @@
 import { google, fitness_v1 } from 'googleapis';
 
-import { getOAuth2ClientForLocal } from './getOAuth2ClientForLocal';
-import { NanoSecConverter } from './libs/NanoSecConverter';
+import { getOAuth2ClientForLocal } from './authentication/getOAuth2ClientForLocal';
+import { NanoSecConverter } from '../libs/NanoSecConverter';
 
 export async function registerBodyData(weight: number, time: Date) {
     const oauth2Client = await getOAuth2ClientForLocal();
