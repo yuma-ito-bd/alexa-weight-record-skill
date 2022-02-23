@@ -1,13 +1,14 @@
-- [ ] Google Fitから体重を取得する処理
+- [x] Google Fitから体重を取得する処理
 - [ ] 認可
   - [x] 認可用のURLの作成
   - [x] URLにアクセスする
   - [x] リダイレクト時の処理（初回）
     - [x] アクセストークン、リフレッシュトークンの取得
-  - [ ] アクセストークンの更新
+  - [x] アクセストークンの更新
   - [ ] OpenId connectの利用
 - [ ] インフラ構築
   - [ ] Lambda
+    - [ ] 環境変数の設定(`DATA_SOURCE_ID, REFRESH_TOKEN, OAUTH2_CLIENT_ID, OAUTH2_CLIENT_SECRET, OAUTH2_REDIRECT_URI`)
   - [ ] API Gateway
 - [ ] Alexaスキルの設定
 
@@ -20,3 +21,4 @@
 6. アクセストークンを使ってGoogle APIにリクエストする
 
 リフレッシュトークンをセットすればアクセストークンを自動で更新してくれる。
+
