@@ -5,8 +5,9 @@
   "main": "index.js",
   "scripts": {
     "test": "jest",
-    "build": "tsc",
-    "package": "cd dist && rm lambda.zip && zip -r lambda lambda"
+    "build": "rm -rf dist && tsc",
+    "npm-install-for-deploy": "cp package.json package-lock.json dist/lambda && cd dist/lambda && npm ci --only=production",
+    "prepare-to-deploy": "cd dist && rm -f lambda.zip && explorer ."
   },
   "author": "Yuma Ito",
   "license": "ISC",

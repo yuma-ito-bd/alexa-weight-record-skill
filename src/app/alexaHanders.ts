@@ -1,5 +1,7 @@
 import { ErrorHandler, HandlerInput, RequestHandler } from 'ask-sdk-core';
-import { Response, SessionEndedRequest } from 'ask-sdk-model';
+import { IntentRequest, Response, SessionEndedRequest } from 'ask-sdk-model';
+import { getOAuth2ClientForLambda } from './authentication/getOAuth2ClientForLambda';
+import { RegisterBodyData } from './registerBodyData';
 
 export const launchRequestHandler: RequestHandler = {
     canHandle(handlerInput: HandlerInput): boolean {
@@ -7,7 +9,7 @@ export const launchRequestHandler: RequestHandler = {
     },
     handle(handlerInput: HandlerInput): Response {
         const speechText =
-            '体重記録アプリ「たいれこ」にようこそ。今日の体重を教えてちょ。';
+            '体重記録アプリ「たいレコ」にようこそ。今日の体重を教えてね。';
 
         return handlerInput.responseBuilder
             .speak(speechText)
@@ -26,13 +28,32 @@ export const registerIntentHandler: RequestHandler = {
         );
     },
     async handle(handlerInput: HandlerInput): Promise<Response> {
-        // TODO 体重の数値を取り出して登録する
+        // 体重の数値を取り出して登録する
+        const weight = (handlerInput.requestEnvelope.request as IntentRequest)
+            .intent.slots?.weight?.value;
 
-        const speechText = '体重を記録しました。';
+        if (weight == null) {
+            const speakText =
+                'すみません。体重を聞き取れませんでした。もう一度教えてください。';
+            return handlerInput.responseBuilder
+                .speak(speakText)
+                .reprompt(speakText)
+                .withSimpleCard('エラー', speakText)
+                .getResponse();
+        }
+
+        const dataSourceId = process.env.DATA_SOURCE_ID;
+        if (dataSourceId == null) throw new Error('DATA_SOURCE_ID is not set');
+
+        const oauth2Client = getOAuth2ClientForLambda();
+        const usecase = new RegisterBodyData(oauth2Client, dataSourceId);
+        usecase.exec(Number(weight), new Date());
+
+        const speechText = `体重を${weight}キロで記録しました。また明日も記録してくださいね！`;
 
         return handlerInput.responseBuilder
             .speak(speechText)
-            .withSimpleCard('Hello World', speechText)
+            .withSimpleCard('体重記録完了！', speechText)
             .getResponse();
     },
 };
