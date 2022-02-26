@@ -2,10 +2,7 @@
 
 体重を記録できるAlexaスキル「たいレコ」です。（※スキルは非公開です）
 
-Alexaに体重を伝えることでGoogle Fitに体重を記録することができます。
-
-
-Alexaスキル開発の勉強として作成しました。
+Alexaに体重を伝えることでGoogle Fitに体重を記録することができます。([デモ](https://twitter.com/yuma_ito_bd/status/1497404842679369730?s=20&t=tvQKYsYbEtL2RIxPBlFq8w))
 
 開発時のメモはこちら
 - [Alexaスキル開発学習メモ](https://zenn.dev/yuma_ito_bd/scraps/28e66b52ab0032)
