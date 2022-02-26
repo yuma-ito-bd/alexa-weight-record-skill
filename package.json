@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "exec": "ts-node -T",
     "test": "jest",
     "build": "rm -rf dist && tsc",
     "npm-install-for-deploy": "cp package.json package-lock.json dist/lambda && cd dist/lambda && npm ci --only=production",
